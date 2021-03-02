@@ -1,0 +1,146 @@
+openapi: 3.0.2
+info:
+    title: Openapi-Demo
+    version: 1.0.0
+    description: A basic API that manages "Books" to demonstrate the usage of OpenAPI
+servers:
+    -
+        url: 'http://localhost:3000'
+        description: ''
+paths:
+    /books:
+        summary: Path used to manage the list of books.
+        description: >-
+            The REST endpoint/path used to list and create zero or more `Book` entities.  This path contains a
+            `GET` and `POST` operation to perform the list and create tasks, respectively.
+        get:
+            responses:
+                '200':
+                    content:
+                        application/json:
+                            schema:
+                                type: array
+                                items:
+                                    $ref: '#/components/schemas/Book'
+                    description: Successful response - returns an array of `Book` entities.
+            operationId: getBooks
+            summary: List All Books
+            description: Gets a list of all `Book` entities.
+            x-eov-operation-id: getAllBooks
+            x-eov-operation-handler: routes/books
+        post:
+            requestBody:
+                description: A new `Book` to be created.
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/Book'
+                required: true
+            responses:
+                '201':
+                    description: Successful response.
+            operationId: createBook
+            summary: Create a Book
+            description: Creates a new instance of a `Book`.
+            x-eov-operation-id: createBook
+            x-eov-operation-handler: routes/books
+    '/books/{bookId}':
+        summary: Path used to manage a single Book.
+        description: >-
+            The REST endpoint/path used to get, update, and delete single instances of an `Book`.  This path
+            contains `GET`, `PUT`, and `DELETE` operations used to perform the get, update, and delete tasks,
+            respectively.
+        get:
+            responses:
+                '200':
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/Book'
+                    description: Successful response - returns a single `Book`.
+            operationId: getBook
+            summary: Get a Book
+            description: Gets the details of a single instance of a `Book`.
+            x-eov-operation-id: getBookById
+            x-eov-operation-handler: routes/books
+        put:
+            requestBody:
+                description: Updated `Book` information.
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/Book'
+                required: true
+            responses:
+                '202':
+                    description: Successful response.
+            operationId: updateBook
+            summary: Update a Book
+            description: Updates an existing `Book`.
+            x-eov-operation-id: updateBook
+            x-eov-operation-handler: routes/books
+        delete:
+            responses:
+                '204':
+                    description: Successful response.
+            operationId: deleteBook
+            summary: Delete a Book
+            description: Deletes an existing `Book`.
+            x-eov-operation-id: deleteBook
+            x-eov-operation-handler: routes/books
+        parameters:
+            -
+                name: bookId
+                description: A unique identifier for a `Book`.
+                schema:
+                    type: string
+                in: path
+                required: true
+    /books/genre:
+        description: Retrieve a set of books by genre.
+        get:
+            parameters:
+                -
+                    name: genre
+                    description: The genre being queried
+                    schema:
+                        type: string
+                    in: query
+                    required: true
+            responses:
+                '200':
+                    content:
+                        application/json:
+                            schema:
+                                type: array
+                                items:
+                                    $ref: '#/components/schemas/Book'
+                    description: An array of books that match the genre provided
+            summary: Get Book By Genre
+            description: Retrieve a set of books by genre.
+            x-eov-operation-id: getBooksByGenre
+            x-eov-operation-handler: routes/books
+components:
+    schemas:
+        Book:
+            title: Root Type for Book
+            description: A book
+            required:
+                - author
+                - genre
+                - title
+            type: object
+            properties:
+                id:
+                    type: string
+                title:
+                    type: string
+                author:
+                    type: string
+                genre:
+                    type: string
+            example:
+                id: 38942d87-8780-46aa-99bf-a54a0f61617c
+                title: The Pillars of Eternity
+                author: Ken Follet
+                genre: Historical Fiction

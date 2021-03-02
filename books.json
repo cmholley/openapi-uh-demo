@@ -1,0 +1,27 @@
+[
+  {
+    "title": "Pillars of the Earth",
+    "author": "Ken Follet",
+    "genre": "Historical Fiction"
+  },
+  {
+    "title": "Enders Game",
+    "author": "Orson Scott Card",
+    "genre": "Sci-Fi"
+  },
+    {
+      "title": "Starship Troopers",
+      "author": "Robert Heinlein",
+      "genre": "Sci-Fi"
+    },
+  {
+    "title": "Outliers",
+    "author": "Malcom Gladwell",
+    "genre": "Non-fiction"
+  },
+    {
+      "title": "Tipping Point",
+      "author": "Malcom Gladwell",
+      "genre": "Fiction"
+    }
+]
